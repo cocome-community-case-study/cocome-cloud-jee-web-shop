@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:body>
+	<ui:composition template="/templates/commonTemplate.xhtml">
+
+		<ui:define name="body">
+			<p>
+				<h:outputText value="#{strings.overviewText}"
+					style="font-weight: bold" />
+			</p>
+
+			<h:form>
+				<h:dataTable value="#{shoppingCart.items}" var="item" width="100%"
+					styleClass="product-table" headerClass="product-table-header"
+					rowClasses="product-table-odd-row,product-table-even-row"
+					columnClasses="product-table-text-col, product-table-text-col, product-table-number-col, 
+    				product-table-number-col, product-table-number-col">
+					<h:column>
+						<f:facet name="header">#{strings.stockItemNameText}</f:facet>
+						<h:link value="#{item.product.name}" outcome="productDetails">
+							<f:param name="barcode" value="#{item.product.barcode}" />
+						</h:link>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">#{strings.stockItemStoreText}</f:facet>
+						<h:panelGroup rendered="#{not empty item.store}">
+							<h:outputText value="#{item.store.name}" />
+						(<h:outputText value="#{item.store.location}" />)
+					</h:panelGroup>
+					</h:column>
+
+					<h:column headerClass="product-table-header-right">
+						<f:facet name="header">#{strings.cartItemQuantityText}</f:facet>
+					#{item.quantity}
+				</h:column>
+
+					<h:column headerClass="product-table-header-right">
+						<f:facet name="header">#{strings.cartItemSinglePriceText}</f:facet>
+						<h:outputText value="#{item.singlePrice}">
+							<f:convertNumber type="currency" />
+						</h:outputText>
+					</h:column>
+
+					<h:column headerClass="product-table-header-right">
+						<f:facet name="header">#{strings.cartItemCompletePriceText}</f:facet>
+						<h:outputText value="#{item.completePrice}">
+							<f:convertNumber type="currency" />
+						</h:outputText>
+					</h:column>
+				</h:dataTable>
+
+				<p align="right" style="font-weight: bold">
+					#{strings.cartTotalText}:
+					<h:outputText value="#{shoppingCart.cartPrice}">
+						<f:convertNumber type="currency" />
+					</h:outputText>
+				</p>
+
+				<p>
+					<h:outputText value="#{strings.creditCardInfoText}" />
+				</p>
+
+				<p>
+					<h:outputText value="#{checkOutDetails.creditCard}" />
+				</p>
+
+				<p>
+					<h:commandButton value="#{strings.confirmButtonText}"
+						action="#{checkOutWizard.checkOutCart}" style="float: right" >
+						<!-- <f:ajax render="@form" execute="@form" /> -->
+					</h:commandButton>
+						
+					<h:commandButton value="#{strings.cancelButtonText}"
+						action="#{checkOutWizard.cancel}" style="float: right" >
+						<!-- <f:ajax render="@form" execute="@form" /> -->
+					</h:commandButton>
+				</p>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

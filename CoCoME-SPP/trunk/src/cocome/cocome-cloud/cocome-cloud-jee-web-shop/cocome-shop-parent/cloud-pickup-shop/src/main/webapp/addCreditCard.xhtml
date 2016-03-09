@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:body>
+
+	<ui:composition template="/templates/commonTemplate.xhtml">
+	
+		<ui:define name="body">
+				<h:form id="addCreditCardForm">
+					<p>
+						<h:outputText value="#{strings.addCardInfoText} " /> <br/>
+						<h:inputText id="creditCardInfo" value="#{addCreditCardWizard.creditCardInfo}" 
+							required="true" requiredMessage="#{strings.registerRequiredText}"/>
+						<h:message for="creditCardInfo" errorStyle="color:red; display:block"/>
+					</p>
+					
+						<p>
+							<h:commandButton value="#{strings.addCardButtonText}" action="#{addCreditCardWizard.end}" style="float: right">
+								<!-- <f:ajax execute="@form" />-->
+							</h:commandButton>
+						</p>
+				</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

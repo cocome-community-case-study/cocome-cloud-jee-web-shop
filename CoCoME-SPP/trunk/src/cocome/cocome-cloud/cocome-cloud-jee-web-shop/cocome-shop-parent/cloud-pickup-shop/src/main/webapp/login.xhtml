@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:body>
+
+	<ui:composition template="/templates/commonTemplate.xhtml">
+	
+		<ui:define name="body">
+				<h:form id="loginForm">
+					<p>
+						<h:outputText value="#{strings.userNameText}: " /> <br/>
+						<h:inputText value="#{userLogin.name}" required="true" />
+					</p>
+					<p>
+						<h:outputText value="#{strings.passwordText}: " /> <br/>
+						<h:inputSecret value="#{userLogin.password}" required="true" />
+					</p>
+						<p>
+							<h:commandButton value="#{strings.loginButtonText}" action="#{userLogin.login}">
+								<f:ajax render="@form :selectedShopInfo :loginAccount" execute="@form" />
+							</h:commandButton>
+						</p>
+				</h:form>
+						<p>
+							<h:link value="#{strings.registerText}" outcome="register"/>
+						</p>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

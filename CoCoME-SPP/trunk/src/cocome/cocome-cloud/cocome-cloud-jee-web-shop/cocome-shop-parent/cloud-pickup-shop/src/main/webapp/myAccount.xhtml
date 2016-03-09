@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:body>
+
+	<ui:composition template="/templates/commonTemplate.xhtml">
+	
+		<ui:define name="body">
+			<h:form>
+					<p>
+						<h:outputText value="#{strings.userNameText}: " /> <br/>
+						<h:outputText value="#{userLogin.name}"/>
+					</p>
+					
+					<p>
+						<h:outputText value="#{userLogin.userName} "/> <br/>
+						<h:outputText value="#{accountDetails.firstName} "/> <br/>
+						<h:outputText value="#{accountDetails.lastName} "/> <br/>
+						<h:outputText value="#{accountDetails.mailAddress} "/> <br/>
+						<h:outputText value="#{accountDetails.preferredStoreName} "/><br/>
+					</p>
+					
+					<p>
+						<h:commandButton value="#{strings.logOutText}" action="#{userLogin.logout}">
+							<f:ajax render="@form :headerTable" execute="@form"/>
+						</h:commandButton>
+					</p>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

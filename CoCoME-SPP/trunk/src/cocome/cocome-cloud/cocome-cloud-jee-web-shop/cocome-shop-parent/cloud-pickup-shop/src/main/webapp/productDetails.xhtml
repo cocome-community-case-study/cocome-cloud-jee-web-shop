@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:components="http://java.sun.com/jsf/composite/components">
+
+
+<h:body>
+
+	<ui:composition template="/templates/commonTemplate.xhtml">
+
+		<ui:define name="body">
+
+			<f:metadata>
+				<f:viewParam name="barcode" value="#{productDetails.product}"
+					required="true" converter="#{productConverter}"
+					converterMessage="#{strings.unknownProductText}"
+					requiredMessage="#{strings.badRequestText}" />
+			</f:metadata>
+			<h:form>
+			<table width="890px">
+				<tbody>
+					<tr>
+						<td colspan="4" align="center">
+							<h3>#{productDetails.product.name}</h3>
+						</td>
+					</tr>
+					<tr>
+						<td width="30%" align="center" height="300px" style="border: 1px solid black">Picture coming soon!</td>
+						<td width="50%" valign="top" style="border: 0px solid black; border-right-width: 1px">
+							<p><h:outputText value="#{empty productDetails.product.description ? 
+								strings.noDescriptionAvailableText : productDetails.product.description}" /></p>
+						</td>
+						<td width="20%" valign="top">
+							<p>#{strings.stockItemAmountText}:<br/>
+								<h:outputText value="#{productDetails.product.amount}" rendered="#{storeInformation.storeSet and productDetails.product.amount != -1}"/>
+								<h:outputText value="#{strings.selectStoreToViewText}" rendered="#{!storeInformation.storeSet}"/>
+								<h:outputText value="#{strings.itemNotAvailableText}" rendered="#{storeInformation.storeSet and productDetails.product.amount == -1}"/>
+							</p>
+
+							<p><h:outputText value="#{strings.stockItemPriceText}:" style="font-weight: bold"/><br/>
+								<h:outputText value="#{productDetails.product.salesPrice}" 
+								rendered="#{storeInformation.storeSet and productDetails.product.salesPrice != -1}"
+								style="font-weight: bold"/>
+								
+								<h:outputText value="#{strings.selectStoreToViewText}" 
+								rendered="#{!storeInformation.storeSet}"/>
+							</p><br/>
+							<h:form>
+							<p>							
+							<h:commandLink value="#{strings.addToCartText}" 
+								action="#{shoppingCart.addItem(productDetails.product)}" 
+								rendered="#{storeInformation.storeSet and productDetails.product.amount > 0}">
+								<f:ajax render="@form :cartButton" execute="@form" />
+							</h:commandLink>
+							&#160;
+							</p>
+						</h:form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
