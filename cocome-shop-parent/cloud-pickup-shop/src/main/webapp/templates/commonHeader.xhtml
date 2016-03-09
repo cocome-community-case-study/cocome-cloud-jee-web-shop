@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<body>
+	<ui:composition>
+				<table id="headerTable" width="900px" class="headerTable">
+					<tbody>
+						<tr class="header-table-banner-row" valign="top">
+							<td colspan="3" align="center" valign="top" width="100%">				
+							<h3>
+								<h:outputText value="CoCoME Pickup Shop" />
+							</h3></td>
+						</tr>
+						<tr>
+						<td colspan="3">
+							<table width="100%">
+							<tbody>
+								<tr class="header-bold-text">
+									<td align="left" width="40%">
+										<ui:insert name="navigation">
+											<ui:include src="/templates/commonNavigation.xhtml" />
+										</ui:insert>
+									</td>
+									<td align="right" width="30%">
+										<h:panelGroup id="selectedShopInfo" rendered="#{storeInformation.storeSet}">
+										<h:outputText
+											value="#{storeInformation.activeStore.name}"/> 
+											&#160;
+										(<h:link styleClass="header-small-text"
+											value="#{strings.changeStoreText}" 
+											outcome="shopSelect"/>)
+										</h:panelGroup>
+										
+										<h:outputText
+											value="#{strings.noStoreSelectedText}"
+											rendered="#{not storeInformation.storeSet}" />
+									</td>
+									<td align="right" width="10%">
+											<h:link id="cartButton" styleClass="shopping-cart-button"
+											value="#{shoppingCart.itemCount}" outcome="showCart"/> 
+									</td>
+									<td align="right" width="20%">
+										<h:panelGroup id="loginAccount">
+											<h:link id="loginButton"
+												value="#{strings.loginButtonText}" outcome="login" rendered="#{not userLogin.loggedIn}"/>
+											<h:link value="#{strings.loggedInAsText} #{accountDetails.firstName}" outcome="myAccount" rendered="#{userLogin.loggedIn}" />
+										</h:panelGroup>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+						</tr>
+					</tbody>
+				</table>
+	</ui:composition>
+	</body>
+</html>

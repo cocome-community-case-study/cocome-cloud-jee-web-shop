@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:components="http://java.sun.com/jsf/composite/components">
+
+
+<h:body>
+
+	<ui:composition template="/templates/commonTemplate.xhtml">
+	
+		<ui:define name="body">
+			<h:form>
+			<h:dataTable value="#{inventoryConnector.allProducts}" var="item" width="890px"
+				styleClass="product-table"
+				headerClass="product-table-header"
+    			rowClasses="product-table-odd-row,product-table-even-row"
+    			columnClasses="product-table-text-col, product-table-text-col, 
+    				product-table-number-col, product-table-number-col, product-table-number-col">
+				<h:column>
+					<f:facet name="header">#{strings.stockItemNameText}</f:facet>
+					<h:link value="#{item.name}" outcome="productDetails">
+						<f:param name="barcode" value="#{item.barcode}"/>
+					</h:link>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">#{strings.stockItemDescriptionText}</f:facet>
+					#{item.description}
+				</h:column>
+				
+				<h:column headerClass="product-table-header-right">
+					<f:facet name="header">#{strings.stockItemAmountText}</f:facet>
+					<h:panelGroup>
+						<h:outputText value="#{item.amount}" rendered="#{storeInformation.storeSet and item.amount != -1}"/>
+						<h:outputText value="#{strings.selectStoreToViewText}" rendered="#{!storeInformation.storeSet}"/>
+						<h:outputText value="#{strings.itemNotAvailableText}" rendered="#{storeInformation.storeSet and item.amount == -1}"/>
+					</h:panelGroup>
+				</h:column>	
+				
+				<h:column headerClass="product-table-header-right">
+					<f:facet name="header">#{strings.stockItemPriceText}</f:facet>
+					<h:outputText value="#{item.salesPrice}" rendered="#{storeInformation.storeSet and item.salesPrice != -1}"/>
+					<h:outputText value="#{strings.selectStoreToViewText}" rendered="#{!storeInformation.storeSet}"/>
+				</h:column>	
+				
+				<h:column>
+					<h:commandLink value="#{strings.addToCartText}" action="#{shoppingCart.addItem(item)}" rendered="#{storeInformation.storeSet and item.amount > 0}">
+						<f:ajax render="@form :cartButton" />
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>
