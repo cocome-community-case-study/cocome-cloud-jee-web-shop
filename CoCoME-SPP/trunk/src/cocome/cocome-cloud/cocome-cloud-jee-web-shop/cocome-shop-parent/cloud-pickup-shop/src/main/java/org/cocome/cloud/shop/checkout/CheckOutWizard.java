@@ -21,7 +21,7 @@ import org.cocome.logic.stub.UpdateException_Exception;
 import java.io.Serializable;
 
 /**
- * Implements the wizard to guide the checkout process.
+ * Implements the wizard to guide the customer through the checkout process. 
  * 
  * @author Tobias Pöppke
  * @author Robert Heinrich
@@ -49,6 +49,12 @@ public class CheckOutWizard implements Serializable {
 	@Inject
 	IShoppingCart cart;
 	
+	/**
+	 * Begins the checkout process by creating a new conversation context 
+	 * and redirecting the customer to the checkout site. 
+	 * 
+	 * @return - the view id string to present to the customer
+	 */
 	public String start() {
 		if (conversation.isTransient()) {
 			conversation.begin();
@@ -56,6 +62,15 @@ public class CheckOutWizard implements Serializable {
 		return "checkout";
 	}
 	
+	/**
+	 * Checks if a credit card was selected and decides which  
+	 * view should be presented to the customer as the next step.
+	 * If no credit card was selected the customer is notified 
+	 * and is redirected to the card selection view. Otherwise 
+	 * the customer is presented with the view to enter a pin.  
+	 * 
+	 * @return - the view id string to present to the customer
+	 */
 	public String enterPin() {
 		if (details == null) {
 			details = detailsInstance.get();
@@ -71,6 +86,14 @@ public class CheckOutWizard implements Serializable {
 		}
 	}
 	
+	/**
+	 * Checks if a credit card and a pin was entered and decides
+	 * which view should be presented to the customer as the next step.
+	 * If all information is present, the customer is presented with 
+	 * an overview page to review the order.  
+	 * 
+	 * @return - the view id string to present to the customer
+	 */
 	public String overviewPage() {
 		if (details == null) {
 			details = detailsInstance.get();
@@ -91,10 +114,27 @@ public class CheckOutWizard implements Serializable {
 		}
 	}
 	
+	/**
+	 * Cancels the current checkout process and redirects the customer
+	 * to the products view.
+	 * 
+	 * @return - the view id string to present to the customer
+	 */
 	public String cancel() {
 		return end();
 	}
 
+	/**
+	 * Calls the {@link IBankLocal} interface to debit the credit card.
+	 * If the debit process fails the customer is presented with a 
+	 * message about the error and may retry or cancel the process.
+	 * If the debit process is successful the items in the shopping 
+	 * cart are being processed and the sale is completed.
+	 * The shopping card is reset and the customer gets presented with
+	 * the products view. 
+	 * 
+	 * @return - the view id string to present to the customer
+	 */
 	public String checkOutCart() {
 		details = detailsInstance.get();
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -140,6 +180,11 @@ public class CheckOutWizard implements Serializable {
 		}
 	}
 
+	/**
+	 * Ends this checkout process and the corresponding conversation context.
+	 * 
+	 * @return - the view id string to present to the customer
+	 */
 	public String end() {
 		if (!conversation.isTransient()) {
 			conversation.end();
