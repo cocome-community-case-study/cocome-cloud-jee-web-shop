@@ -11,6 +11,8 @@ import java.io.Serializable;
 
 /**
  * Holds the account information for the currently logged in customer.
+ * A customer has to be logged in in the current session, otherwise
+ * there will be an exception when trying to inject this class.
  * 
  * @author Tobias Pöppke
  * @author Robert Heinrich
