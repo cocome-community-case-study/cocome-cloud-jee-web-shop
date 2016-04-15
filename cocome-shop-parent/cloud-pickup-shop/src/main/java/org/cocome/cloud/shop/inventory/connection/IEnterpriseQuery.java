@@ -3,10 +3,10 @@ package org.cocome.cloud.shop.inventory.connection;
 import java.util.Collection;
 import java.util.List;
 
+import org.cocome.cloud.logic.stub.NotInDatabaseException_Exception;
 import org.cocome.cloud.shop.inventory.enterprise.Enterprise;
 import org.cocome.cloud.shop.inventory.store.ProductWrapper;
 import org.cocome.cloud.shop.inventory.store.Store;
-import org.cocome.logic.stub.NotInDatabaseException_Exception;
 
 /**
  * Interface for the retrieval of enterprise and store related information from the backend.

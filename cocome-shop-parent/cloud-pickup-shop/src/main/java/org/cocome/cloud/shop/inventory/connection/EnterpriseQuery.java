@@ -11,15 +11,15 @@ import javax.inject.Named;
 import javax.xml.ws.WebServiceRef;
 
 import org.apache.log4j.Logger;
+import org.cocome.cloud.logic.stub.IEnterpriseManager;
+import org.cocome.cloud.logic.stub.IEnterpriseManagerService;
+import org.cocome.cloud.logic.stub.NotInDatabaseException_Exception;
 import org.cocome.cloud.shop.inventory.enterprise.Enterprise;
 import org.cocome.cloud.shop.inventory.store.ProductWrapper;
 import org.cocome.cloud.shop.inventory.store.Store;
-import org.cocome.logic.stub.EnterpriseManagerService;
-import org.cocome.logic.stub.EnterpriseTO;
-import org.cocome.logic.stub.IEnterpriseManager;
-import org.cocome.logic.stub.NotInDatabaseException_Exception;
-import org.cocome.logic.stub.ProductTO;
-import org.cocome.logic.stub.StoreWithEnterpriseTO;
+import org.cocome.tradingsystem.inventory.application.store.EnterpriseTO;
+import org.cocome.tradingsystem.inventory.application.store.ProductTO;
+import org.cocome.tradingsystem.inventory.application.store.StoreWithEnterpriseTO;
 
 /**
  * Implements the enterprise query interface to retrieve information 
@@ -38,7 +38,7 @@ public class EnterpriseQuery implements IEnterpriseQuery {
 	private Map<Long, Store> stores;
 	private Map<Long, ProductWrapper> products;
 	
-	@WebServiceRef(EnterpriseManagerService.class)
+	@WebServiceRef(IEnterpriseManagerService.class)
 	IEnterpriseManager enterpriseManager;
 	
 	/* (non-Javadoc)

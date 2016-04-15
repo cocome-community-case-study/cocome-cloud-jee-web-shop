@@ -2,8 +2,8 @@ package org.cocome.cloud.shop.inventory.enterprise;
 
 import java.util.Collection;
 
+import org.cocome.cloud.logic.stub.NotInDatabaseException_Exception;
 import org.cocome.cloud.shop.inventory.store.Store;
-import org.cocome.logic.stub.NotInDatabaseException_Exception;
 
 /**
  * Interface for information regarding the currently active enterprise.

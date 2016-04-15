@@ -24,7 +24,7 @@
 
 		<dependency>
 			<groupId>org.cocome</groupId>
-			<artifactId>cloud-logic-webservicestubs</artifactId>
+			<artifactId>cloud-logic-core-services</artifactId>
 			<version>1.1</version>
 		</dependency>
 		<dependency>
@@ -57,10 +57,12 @@
 					<instructions>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Description>${project.artifactId}</Bundle-Description>
-						<Export-Package>org.cocome.cloud.auth.provider, org.cocome.logic.stub</Export-Package>
+						<Export-Package>org.cocome.cloud.auth.provider, org.cocome.cloud.logic.stub, 
+						org.cocome.tradingsystem.inventory.application.usermanager,
+						org.cocome.tradingsystem.inventory.application.store</Export-Package>
 						<Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
 						<Embed-Transitive>true</Embed-Transitive>
-						<_exportcontents>org.cocome.logic.stub.*</_exportcontents>
+						<_exportcontents>org.cocome.cloud.logic.stub.*, org.cocome.tradingsystem.inventory.application.*</_exportcontents>
 					</instructions>
 				</configuration>
 				<executions>

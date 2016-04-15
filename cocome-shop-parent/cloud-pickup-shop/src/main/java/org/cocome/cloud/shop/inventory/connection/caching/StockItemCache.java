@@ -9,11 +9,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.cocome.cloud.logic.stub.NotInDatabaseException_Exception;
 import org.cocome.cloud.shop.inventory.connection.IStoreQuery;
 import org.cocome.cloud.shop.inventory.store.IStoreInformation;
 import org.cocome.cloud.shop.inventory.store.ProductWrapper;
-import org.cocome.logic.stub.NotInDatabaseException_Exception;
-
 /**
  * Implements a cache for stock items using a {@link LinkedHashMap} as backing store.
  * 

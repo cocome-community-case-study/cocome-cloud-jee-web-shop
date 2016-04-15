@@ -1,34 +1,17 @@
 package org.cocome.cloud.shop.customer;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.annotation.Resource;
-import javax.annotation.security.RolesAllowed;
-import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.inject.Named;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.WebServiceClient;
-import javax.xml.ws.WebServiceRef;
-
 import org.apache.log4j.Logger;
+import org.cocome.cloud.logic.stub.NotInDatabaseException_Exception;
+import org.cocome.cloud.logic.stub.UpdateException_Exception;
 import org.cocome.cloud.shop.inventory.IInventory;
-import org.cocome.logic.stub.CredentialTO;
-import org.cocome.logic.stub.CredentialType;
-import org.cocome.logic.stub.CustomerWithStoreTO;
-import org.cocome.logic.stub.ILoginManager;
-import org.cocome.logic.stub.LoginManagerService;
-import org.cocome.logic.stub.NotInDatabaseException_Exception;
-import org.cocome.logic.stub.StoreTO;
-import org.cocome.logic.stub.UpdateException_Exception;
-import org.cocome.logic.stub.UserTO;
+import org.cocome.tradingsystem.inventory.application.store.CustomerWithStoreTO;
+import org.cocome.tradingsystem.inventory.application.store.StoreTO;
+import org.cocome.tradingsystem.inventory.application.usermanager.UserTO;
 
 import java.io.Serializable;
 import java.util.LinkedHashSet;
-import java.util.Map;
 import java.util.Set;
 
 /**

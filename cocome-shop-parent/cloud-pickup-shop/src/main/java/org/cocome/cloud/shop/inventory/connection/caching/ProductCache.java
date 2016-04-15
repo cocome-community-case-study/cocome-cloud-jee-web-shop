@@ -8,9 +8,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.log4j.Logger;
+import org.cocome.cloud.logic.stub.NotInDatabaseException_Exception;
 import org.cocome.cloud.shop.inventory.connection.IEnterpriseQuery;
 import org.cocome.cloud.shop.inventory.store.ProductWrapper;
-import org.cocome.logic.stub.NotInDatabaseException_Exception;
 
 /**
  * Implements a product cache using a {@link LinkedHashMap} as data store.

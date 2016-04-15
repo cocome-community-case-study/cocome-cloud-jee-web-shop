@@ -32,9 +32,10 @@ public class CartUtil {
 	}
 	
 	public static List<Integer> getQuantityList(ProductWrapper product) {
-		List<Integer> quantities = new ArrayList<Integer>((int) product.getAmount());
+		long availableAmount = product.getAmount() > 30 ? 30 : product.getAmount();
+		List<Integer> quantities = new ArrayList<Integer>((int) availableAmount);
 		
-		for (int i = 1; i <= product.getAmount(); i++) {
+		for (int i = 1; i <= availableAmount; i++) {
 			quantities.add(i);
 		}
 		return quantities;

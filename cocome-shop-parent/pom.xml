@@ -38,7 +38,13 @@
 		<jcache-cdi-lib-version>1.0.0</jcache-cdi-lib-version>
 		
 		<!-- deployment properties -->
-		<local.glassfish.home>/home/rju/glassfish4/glassfish</local.glassfish.home>
+		<!-- <local.glassfish.home>/home/rju/glassfish4/glassfish</local.glassfish.home> -->
+		
+		<logic.registry.protocol>http</logic.registry.protocol>
+		<logic.registry.host>localhost</logic.registry.host>
+		<logic.registry.httpPort>8280</logic.registry.httpPort>
+		<logic.registry.baseDir />
+		<logic.registryService>/RegistryService</logic.registryService>
         
 	    <pickup.domain>cocome-pickup-gf4</pickup.domain>
         <pickup.host>localhost</pickup.host>

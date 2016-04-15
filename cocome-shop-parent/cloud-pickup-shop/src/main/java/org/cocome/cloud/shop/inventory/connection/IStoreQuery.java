@@ -2,12 +2,12 @@ package org.cocome.cloud.shop.inventory.connection;
 
 import java.util.List;
 
+import org.cocome.cloud.logic.stub.NotInDatabaseException_Exception;
+import org.cocome.cloud.logic.stub.ProductOutOfStockException_Exception;
+import org.cocome.cloud.logic.stub.UpdateException_Exception;
 import org.cocome.cloud.shop.inventory.store.ProductWrapper;
 import org.cocome.cloud.shop.inventory.store.Store;
 import org.cocome.cloud.shop.shoppingcart.IShoppingCart;
-import org.cocome.logic.stub.NotInDatabaseException_Exception;
-import org.cocome.logic.stub.ProductOutOfStockException_Exception;
-import org.cocome.logic.stub.UpdateException_Exception;
 
 /**
  * Interface to retrieve stock items from a specific store and to account sales at that store.

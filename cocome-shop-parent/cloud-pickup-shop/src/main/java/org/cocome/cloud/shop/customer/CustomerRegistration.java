@@ -2,17 +2,11 @@ package org.cocome.cloud.shop.customer;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
-import javax.imageio.spi.ServiceRegistry;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
-
 import org.cocome.cloud.shop.inventory.connection.CustomerQuery;
 import org.cocome.cloud.shop.inventory.store.Store;
-import org.cocome.cloud.shop.inventory.store.StoreInformation;
-
 import java.io.Serializable;
 
 /**

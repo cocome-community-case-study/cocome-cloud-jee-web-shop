@@ -27,13 +27,19 @@
 		</dependency>
 		<dependency>
 			<groupId>org.cocome</groupId>
-			<artifactId>cloud-logic-webservicestubs</artifactId>
+			<artifactId>cloud-logic-core-services</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.cocome</groupId>
+			<artifactId>cloud-registry-client</artifactId>
 			<version>1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.spec</groupId>
 			<artifactId>jboss-javaee-web-6.0</artifactId>
 			<type>pom</type>
+			<scope>provided</scope>
 		</dependency>
 				<dependency>
 			<groupId>org.apache.logging.log4j</groupId>

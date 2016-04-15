@@ -10,9 +10,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.log4j.Logger;
+import org.cocome.cloud.logic.stub.NotInDatabaseException_Exception;
+import org.cocome.cloud.logic.stub.UpdateException_Exception;
 import org.cocome.cloud.shop.inventory.IInventory;
-import org.cocome.logic.stub.NotInDatabaseException_Exception;
-import org.cocome.logic.stub.UpdateException_Exception;
 
 /**
  * Implements a wizard to guide the user through the creation of a new credit 

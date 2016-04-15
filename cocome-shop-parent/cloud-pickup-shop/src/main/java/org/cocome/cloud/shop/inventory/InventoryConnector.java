@@ -1,35 +1,27 @@
 package org.cocome.cloud.shop.inventory;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.List;
-
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.log4j.Logger;
+import org.cocome.cloud.logic.stub.NotInDatabaseException_Exception;
+import org.cocome.cloud.logic.stub.ProductOutOfStockException_Exception;
+import org.cocome.cloud.logic.stub.UpdateException_Exception;
 import org.cocome.cloud.shop.customer.Customer;
 import org.cocome.cloud.shop.inventory.connection.CustomerQuery;
 import org.cocome.cloud.shop.inventory.connection.IEnterpriseQuery;
 import org.cocome.cloud.shop.inventory.connection.IStoreQuery;
-import org.cocome.cloud.shop.inventory.connection.caching.ICache;
 import org.cocome.cloud.shop.inventory.connection.caching.IProductCache;
 import org.cocome.cloud.shop.inventory.connection.caching.IStockItemCache;
-import org.cocome.cloud.shop.inventory.connection.caching.StockItemCache;
 import org.cocome.cloud.shop.inventory.enterprise.IEnterpriseInformation;
 import org.cocome.cloud.shop.inventory.store.IStoreInformation;
 import org.cocome.cloud.shop.inventory.store.ProductWrapper;
 import org.cocome.cloud.shop.shoppingcart.CartItem;
 import org.cocome.cloud.shop.shoppingcart.IShoppingCart;
-import org.cocome.cloud.shop.shoppingcart.ShoppingCart;
-import org.cocome.logic.stub.NotInDatabaseException_Exception;
-import org.cocome.logic.stub.ProductOutOfStockException_Exception;
-import org.cocome.logic.stub.ProductWithSupplierAndStockItemTO;
-import org.cocome.logic.stub.UpdateException_Exception;
 
 /**
  * Implements the connection to the backend inventory using a custom cache
