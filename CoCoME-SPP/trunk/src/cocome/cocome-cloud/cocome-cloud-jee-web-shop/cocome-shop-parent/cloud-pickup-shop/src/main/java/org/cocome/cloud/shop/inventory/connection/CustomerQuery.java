@@ -7,9 +7,10 @@ import javax.enterprise.inject.New;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.xml.ws.WebServiceRef;
-import javax.xml.ws.soap.SOAPFaultException;
-
 import org.apache.log4j.Logger;
+import org.cocome.cloud.logic.stub.ILoginManager;
+import org.cocome.cloud.logic.stub.ILoginManagerService;
+import org.cocome.cloud.logic.stub.NotInDatabaseException_Exception;
 import org.cocome.cloud.shop.customer.Customer;
 import org.cocome.cloud.shop.customer.CustomerRegistration;
 import org.cocome.cloud.shop.customer.LoggedIn;
@@ -17,15 +18,12 @@ import org.cocome.cloud.shop.customer.UserLogin;
 import org.cocome.cloud.shop.inventory.store.IStoreInformation;
 import org.cocome.cloud.shop.inventory.store.Store;
 import org.cocome.cloud.shop.inventory.store.StoreInformation;
-import org.cocome.logic.stub.CredentialTO;
-import org.cocome.logic.stub.CredentialType;
-import org.cocome.logic.stub.CustomerWithStoreTO;
-import org.cocome.logic.stub.ILoginManager;
-import org.cocome.logic.stub.LoginManagerService;
-import org.cocome.logic.stub.NotInDatabaseException_Exception;
-import org.cocome.logic.stub.Role;
-import org.cocome.logic.stub.StoreTO;
-import org.cocome.logic.stub.UserTO;
+import org.cocome.tradingsystem.inventory.application.store.CustomerWithStoreTO;
+import org.cocome.tradingsystem.inventory.application.store.StoreTO;
+import org.cocome.tradingsystem.inventory.application.usermanager.CredentialTO;
+import org.cocome.tradingsystem.inventory.application.usermanager.CredentialType;
+import org.cocome.tradingsystem.inventory.application.usermanager.Role;
+import org.cocome.tradingsystem.inventory.application.usermanager.UserTO;
 
 import java.security.Principal;
 
@@ -49,7 +47,7 @@ public class CustomerQuery {
 	@Inject
 	StoreInformation storeInformation;
 	
-	@WebServiceRef(LoginManagerService.class)
+	@WebServiceRef(ILoginManagerService.class)
 	ILoginManager loginManager;
 	
 	@Inject

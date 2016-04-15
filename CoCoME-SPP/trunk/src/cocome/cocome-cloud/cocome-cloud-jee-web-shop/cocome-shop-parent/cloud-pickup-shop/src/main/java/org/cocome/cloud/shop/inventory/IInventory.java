@@ -2,13 +2,12 @@ package org.cocome.cloud.shop.inventory;
 
 import java.util.Collection;
 
+import org.cocome.cloud.logic.stub.NotInDatabaseException_Exception;
+import org.cocome.cloud.logic.stub.ProductOutOfStockException_Exception;
+import org.cocome.cloud.logic.stub.UpdateException_Exception;
 import org.cocome.cloud.shop.customer.Customer;
 import org.cocome.cloud.shop.inventory.store.ProductWrapper;
 import org.cocome.cloud.shop.shoppingcart.IShoppingCart;
-import org.cocome.cloud.shop.shoppingcart.ShoppingCart;
-import org.cocome.logic.stub.NotInDatabaseException_Exception;
-import org.cocome.logic.stub.ProductOutOfStockException_Exception;
-import org.cocome.logic.stub.UpdateException_Exception;
 
 /**
  * Interface for accessing the inventory. Implementations should implement 

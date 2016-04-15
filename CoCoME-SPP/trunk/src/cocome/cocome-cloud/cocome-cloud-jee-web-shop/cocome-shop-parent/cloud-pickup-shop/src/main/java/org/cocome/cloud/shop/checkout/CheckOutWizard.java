@@ -11,12 +11,12 @@ import javax.inject.Named;
 import org.cocome.cloud.external.DebitResult;
 import org.cocome.cloud.external.IBankLocal;
 import org.cocome.cloud.external.TransactionID;
+import org.cocome.cloud.logic.stub.NotInDatabaseException_Exception;
+import org.cocome.cloud.logic.stub.ProductOutOfStockException_Exception;
+import org.cocome.cloud.logic.stub.UpdateException_Exception;
 import org.cocome.cloud.shop.inventory.IInventory;
 import org.cocome.cloud.shop.inventory.connection.IStoreQuery;
 import org.cocome.cloud.shop.shoppingcart.IShoppingCart;
-import org.cocome.logic.stub.NotInDatabaseException_Exception;
-import org.cocome.logic.stub.ProductOutOfStockException_Exception;
-import org.cocome.logic.stub.UpdateException_Exception;
 
 import java.io.Serializable;
 

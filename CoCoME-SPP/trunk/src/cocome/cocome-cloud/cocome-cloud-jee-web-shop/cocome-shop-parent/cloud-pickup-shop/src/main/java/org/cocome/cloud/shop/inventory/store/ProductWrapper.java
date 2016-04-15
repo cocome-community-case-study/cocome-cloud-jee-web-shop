@@ -1,8 +1,8 @@
 package org.cocome.cloud.shop.inventory.store;
 
 import org.apache.log4j.Logger;
-import org.cocome.logic.stub.ProductTO;
-import org.cocome.logic.stub.StockItemTO;
+import org.cocome.tradingsystem.inventory.application.store.ProductTO;
+import org.cocome.tradingsystem.inventory.application.store.StockItemTO;
 
 /**
  * Wraps the {@link ProductTO} and {@link StockItemTO} objects received from 

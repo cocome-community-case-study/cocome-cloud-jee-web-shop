@@ -4,13 +4,12 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.log4j.Logger;
+import org.cocome.cloud.logic.stub.NotInDatabaseException_Exception;
 import org.cocome.cloud.shop.inventory.connection.IEnterpriseQuery;
 import org.cocome.cloud.shop.inventory.store.Store;
-import org.cocome.logic.stub.NotInDatabaseException_Exception;
 import java.io.Serializable;
 
 /**

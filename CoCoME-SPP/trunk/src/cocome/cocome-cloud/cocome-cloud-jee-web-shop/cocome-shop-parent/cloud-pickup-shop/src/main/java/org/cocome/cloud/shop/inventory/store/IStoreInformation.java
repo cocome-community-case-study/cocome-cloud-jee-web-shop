@@ -1,6 +1,6 @@
 package org.cocome.cloud.shop.inventory.store;
 
-import org.cocome.logic.stub.NotInDatabaseException_Exception;
+import org.cocome.cloud.logic.stub.NotInDatabaseException_Exception;
 
 /**
  * Interface to retrieve information about the currently active store.

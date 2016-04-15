@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.cocome.cloud.shop.inventory.store.Store;
-import org.cocome.logic.stub.StoreTO;
+import org.cocome.tradingsystem.inventory.application.store.StoreTO;
 
 import java.io.Serializable;
 
