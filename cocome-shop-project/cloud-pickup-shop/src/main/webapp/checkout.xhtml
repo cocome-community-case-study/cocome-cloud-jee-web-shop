@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:body>
+
+	<ui:composition template="/templates/commonTemplate.xhtml">
+	
+		<ui:define name="body">
+				<h:form id="creditCardChooseForm">
+				<h:panelGroup rendered="#{checkOutDetails.creditCardInfo.size() gt 0}">
+					<p>
+						<h:outputText value="#{strings.chooseCreditCardText}" />
+					</p>
+					<h:selectOneRadio value="#{checkOutDetails.creditCard}" required="true" layout="pageDirection">
+						<f:selectItems value="#{checkOutDetails.creditCardInfo}" />
+						<f:ajax event="click" execute="@form" render=":continueButton"/>
+					</h:selectOneRadio>
+				</h:panelGroup>
+				</h:form>
+				<p>
+					<h:outputText value="#{strings.noCardInfoAvailableText}" rendered="#{checkOutDetails.creditCardInfo.size() eq 0}"/>
+				</p>
+					<h:form id="addCreditCardForm">
+						<p>
+							<h:commandButton action="#{addCreditCardWizard.start}" value="#{strings.addCreditCardStartText}" >
+								<!-- <f:ajax execute="@form"/> -->
+							</h:commandButton>
+						</p>
+					</h:form>
+					<h:form>
+						<p>
+							<h:commandButton id="continueButton" value="#{strings.confirmButtonText}" action="#{checkOutWizard.enterPin}" style="float: right"
+								rendered="#{not empty shoppingCart.items and not empty checkOutDetails.creditCardInfo}">
+							</h:commandButton>
+						</p>
+				</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

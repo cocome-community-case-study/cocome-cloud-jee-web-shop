@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:body>
+
+	<ui:composition template="/templates/commonTemplate.xhtml">
+	
+		<ui:define name="body">
+				<h:form id="registerForm" style="text-align:left">
+					<p>
+						<h:outputText value="#{strings.registerMailAddressText} " /> <br/>
+						<h:inputText id="mailAddress" value="#{customerRegistration.mailAddress}" 
+							required="true" requiredMessage="#{strings.registerRequiredText}" 
+							validatorMessage="#{strings.registerMailAddressFailureText}">
+							<f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+						</h:inputText>
+						<h:message for="mailAddress" errorStyle="color:red; display:block"/>
+					</p>
+					
+					<p>
+						<h:outputText value="#{strings.registerFirstLastNameText} " /> <br/>
+						<h:inputText id="firstName" value="#{customerRegistration.firstName}" 
+							required="true" requiredMessage="#{strings.registerRequiredText}"
+							validatorMessage="#{strings.registerNameFailureText}">
+							<f:validateLength minimum="3" maximum="50"/>
+							<f:validateRegex pattern="[^;]*" />
+						</h:inputText>
+						<h:message for="firstName" errorStyle="color:red"/>
+						&#160;
+						<h:inputText id="lastName" value="#{customerRegistration.lastName}" 
+							required="true" requiredMessage="#{strings.registerRequiredText}"
+							validatorMessage="#{strings.registerNameFailureText}">
+							<f:validateLength minimum="3" maximum="50"/>
+							<f:validateRegex pattern="[^;]*" />
+						</h:inputText> 
+						<h:message for="lastName" errorStyle="color:red"/>
+						
+						
+					</p>
+					
+					<p>
+						<h:outputText value="#{strings.registerPassword1Text} " /> <br/>
+						<h:inputSecret id="password1" value="#{customerRegistration.password1}" 
+							required="true" requiredMessage="#{strings.registerRequiredText}"
+							validatorMessage="#{strings.registerPasswordFailureText}">
+							<f:validateLength minimum="6" maximum="50"/>
+							<f:validateRegex pattern="[^;]*" />
+						</h:inputSecret>
+						<h:message for="password1" errorStyle="color:red; display:block"/>
+					</p>
+					
+					<p>
+						<h:outputText value="#{strings.registerPassword2Text} " /> <br/>
+						<h:inputSecret id="password2" value="#{customerRegistration.password2}" 
+							required="true" requiredMessage="#{strings.registerRequiredText}"
+							validatorMessage="#{strings.registerPasswordFailureText}">
+							<f:validateLength minimum="6" maximum="50"/>
+							<f:validateRegex pattern="[^;]*" />
+						</h:inputSecret>
+						<h:message for="password2" errorStyle="color:red; display:block"/>
+					</p>
+					
+						<p>
+							<h:commandButton value="#{strings.registerButtonText}" action="#{customerRegistration.submit()}">
+								<f:ajax render="@form" execute="@form" />
+							</h:commandButton>
+						</p>
+				</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

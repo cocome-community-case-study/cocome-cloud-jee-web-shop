@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE glassfish-web-app PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Servlet 3.0//EN" "http://glassfish.org/dtds/glassfish-web-app_3_1-1.dtd">
+<glassfish-web-app>
+    <context-root>/cloud-pickup-shop</context-root>
+     <security-role-mapping>
+    	<role-name>Admin</role-name>
+    	<group-name>Admin</group-name>
+    </security-role-mapping>
+    <security-role-mapping>
+    	<role-name>Customer</role-name>
+    	<group-name>Customer</group-name>
+    </security-role-mapping>
+    <parameter-encoding default-charset="UTF-8" />
+</glassfish-web-app>

@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:body>
+
+	<ui:composition template="/templates/commonTemplate.xhtml">
+	
+		<ui:define name="body">
+			<h:form>
+ 			<h:dataTable value="#{shoppingCart.items}" var="item" width="100%"
+				styleClass="product-table"
+				headerClass="product-table-header"
+    			rowClasses="product-table-odd-row,product-table-even-row"
+    			columnClasses="product-table-text-col, product-table-text-col, product-table-number-col, 
+    				product-table-number-col, product-table-number-col, product-table-number-col, 
+    				product-table-number-col">
+				<h:column>
+					<f:facet name="header">#{strings.stockItemNameText}</f:facet>
+					<h:link value="#{item.product.name}" outcome="productDetails">
+						<f:param name="barcode" value="#{item.product.barcode}" />
+					</h:link>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">#{strings.stockItemStoreText}</f:facet>
+					<h:panelGroup rendered="#{not empty item.store}">
+						<h:outputText value="#{item.store.name}"/>
+						(<h:outputText value="#{item.store.location}"/>)
+					</h:panelGroup>
+				</h:column>
+				
+				<h:column headerClass="product-table-header-right">
+					<f:facet name="header">#{strings.stockItemAmountText}</f:facet>
+					<h:panelGroup rendered="#{not empty item.store}">
+						<h:outputText value="#{item.amountAvailable}" rendered="#{item.amountAvailable gt 0}"/>
+						<h:outputText value="#{strings.itemNotAvailableText}" rendered="#{item.amountAvailable lt 0}"/>
+					</h:panelGroup>
+				</h:column>	
+				
+				<h:column headerClass="product-table-header-right">
+					<f:facet name="header">#{strings.cartItemQuantityText}</f:facet>
+					<h:selectOneMenu value="#{item.quantity}" onchange="#{shoppingCart.updateItemQuantity(item.product, item.quantity)}">
+						<f:selectItems value="#{cartUtil.getQuantityList(item.product)}"
+							var="quantity" itemValue="#{quantity}"
+							itemLabel="#{quantity}" />
+						<f:ajax render="@form" execute="@form"/>
+					</h:selectOneMenu>
+				</h:column>
+				
+				<h:column headerClass="product-table-header-right">
+					<f:facet name="header">#{strings.cartItemSinglePriceText}</f:facet>
+					<h:outputText value="#{item.singlePrice}">
+						<f:convertNumber type="currency"/>
+					</h:outputText>
+				</h:column>
+				
+				<h:column headerClass="product-table-header-right">
+					<f:facet name="header">#{strings.cartItemCompletePriceText}</f:facet>
+					<h:outputText value="#{item.completePrice}">
+						<f:convertNumber type="currency"/>
+					</h:outputText>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">&#160;</f:facet>
+					<h:commandLink value="#{strings.deleteItemText}" action="#{shoppingCart.deleteItem(item.product)}">
+						<f:ajax action="@form" render="@form :cartButton"/>
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+			
+			<p align="right" style="font-weight: bold">
+				#{strings.cartTotalText}: <h:outputText value="#{shoppingCart.cartPrice}">
+					<f:convertNumber type="currency"/>
+				</h:outputText>
+			</p>
+			
+			<h:commandButton value="#{strings.checkoutButtonText}"
+						action="#{checkOutWizard.start()}" style="float: right">
+						<f:ajax render="@form" execute="@form" />
+			</h:commandButton>
+			
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

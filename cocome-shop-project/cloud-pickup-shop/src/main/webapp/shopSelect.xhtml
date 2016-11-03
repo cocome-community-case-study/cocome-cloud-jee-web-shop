@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+<h:body>
+
+	<ui:composition template="/templates/commonTemplate.xhtml">
+	
+		<ui:define name="body">
+			<f:metadata>
+				<f:viewAction action="#{enterpriseInformation.setEnterpriseSubmitted(false)}"/>
+			</f:metadata>
+		
+				<h:form id="enterpriseSelection">
+				<h:panelGroup rendered="#{not enterpriseInformation.enterpriseSubmitted}">
+				<p>
+					<h:outputText value="#{strings.selectEnterpriseText}" />
+				</p>
+					<h:selectOneMenu id="selectEnterprise"
+						value="#{enterpriseInformation.activeEnterpriseID}">
+						<f:selectItems value="#{enterpriseInformation.enterprises}"
+							var="enterprise" itemValue="#{enterprise.id}"
+							itemLabel="#{enterprise.name}" />
+					</h:selectOneMenu>
+					<p>
+						<h:commandButton value="#{strings.confirmButtonText}" action="#{enterpriseInformation.submitActiveEnterprise}">
+							<f:ajax render="@form :storeSelection" execute="@form" />
+						</h:commandButton>
+					</p>
+					</h:panelGroup>
+				</h:form>
+				<h:form id="storeSelection">
+					<h:panelGroup
+						rendered="#{enterpriseInformation.enterpriseSubmitted}">
+						<p>
+							<h:outputText value="#{strings.selectStoreText}" />
+						</p>
+						<p>
+							<h:selectOneMenu value="#{storeInformation.activeStoreID}">
+								<f:selectItems value="#{enterpriseInformation.stores}"
+									var="store" itemValue="#{store.ID}" itemLabel="#{store.name}" />
+							</h:selectOneMenu>
+						</p>
+						<p>
+							<h:commandButton value="#{strings.confirmButtonText}" action="#{storeInformation.submitStore}">
+								<f:ajax render="@form :selectedShopInfo" execute="@form" />
+							</h:commandButton>
+						</p>
+					</h:panelGroup>
+				</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
