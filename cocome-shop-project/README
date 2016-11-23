@@ -19,7 +19,7 @@ ${HOME}      - home folder of your user account
 
 This will usually create a domain named 'domain1'. We assume that you
 installed Glassfish in a directory represented by the variable
-${GLASSFISH}, which we use in the remaineder of this document to refer 
+${GLASSFISH}, which we use in the remainder of this document to refer 
 to the installation directory.
 
 Note: in Unix/Linux path names use / and in Windows \. This may require
@@ -47,7 +47,7 @@ Each domain requires their own port numbers for the service and
 administration. The defaults are 8080 for the service and 4848 for the
 administration interface. However, to avoid conflict with running
 systems we define:
-- cocome-pickup: admin 4851, service 8383
+- cocome-pickup: admin 8548, service 8580
 
 You may choose other port numbers, especially when on of these ports is
 already in use. You may not be able to select port numbers below 32000,
@@ -57,7 +57,8 @@ a) Change to ${GLASSFISH}/glassfish
 b) Execute bin/asadmin as follows. The tool will prompt for a password.
    You may leave that empty.
 
-bin/asadmin create-domain --adminport 4851 --instanceport 8383 cocome-pickup
+    bin/asadmin create-domain --portbase 8500 cocome-pickup
+    
 
 Note: It is best to start each domain before creating the next when using 
 this method. Otherwise both domains may end up using the same ports, for 
@@ -80,7 +81,7 @@ is used to compute the ports for this domain. Portbase + 80 is the
 port for accessing the application and portbase + 48 is the port where 
 the admin console will be available. For this method we therefore define:
 
-- cocome-pickup: portbase 8300, admin 8348, service 8380
+- cocome-pickup: portbase 8500, admin 8548, service 8580
 
 In the remaining steps we will use the port numbers from Section 2.1.
 
@@ -101,11 +102,15 @@ We define the following settings for the basic version of CoCoME:
 
 == Importing and Configuring of the CoCoME Pickup Shop Build ==
 
-1.  Import the existing maven project in Eclipse with 
+1.  Check out git repository from:  https://github.com/cocome-community-case-study/cocome-cloud-jee-web-shop.git
+    This can be done via 'git clone https://github.com/cocome-community-case-study/cocome-cloud-jee-web-shop.git'
+    or with eclipse 'clone repository' (use  https://github.com/cocome-community-case-study/cocome-cloud-jee-web-shop.git as URI)
+
+1.1 Import the existing maven project in Eclipse with 
     Import -> Maven -> Existing Maven Projects
 
 2.  Select the cocome-shop-project folder in
-    the SVN repository to import. There should appear two 
+    the GIT repository to import. There should appear two 
     sub-projects, cloud-auth-provider and cloud-pickup-shop.
     These projects depend on an existing installation of the 
     basic CoCoME version to be available at least in the local
@@ -114,20 +119,13 @@ We define the following settings for the basic version of CoCoME:
 3.  Once successfully imported, you need to open the cocome-shop-project/pom.xml file.
 
 3.1 Check and change the following settings:
-    - local.glassfish.home to ${GLASSFISH}/glassfish where you replace
-      ${GLASSFISH} with the path of the installation directory
-    - pickup.domain to cocome-pickup
-    - pickup.httpPort to 8383
-    - pickup.adminPort to 4851
+    - pickup.domain to cocome-pickup (  <pickup.domain>....</pickup.domain>  -->   <pickup.domain>cocome-pickup</pickup.domain> )
+    - pickup.httpPort to 8580
+    - pickup.adminPort to 8548
 
-3.2 Change pickup.passwordfile to point to a plain text password 
-    file with the passwords in the following format. 
-    Note that the master password has to be present and its default value 
-    for a new Glassfish domain is changeit. The default user used is admin 
-    and can be changed with the local.glassfish.user setting.
-           
-    AS_MASTER_PASSWORD=changeit
-    AS_ADMIN_PASSWORD=admin
+
+3.2 Change the <logic.registry.httpPort> to the port you selected in your cocome project  --> check up in cocome's pom.xml  
+    (should be <logic.registry.httpPort>8480</logic.registry.httpPort> if you followed the cocome installation guide, but can be different)    
 
 == Compile and Deploy CoCoME Pickup Shop ==
 
@@ -138,18 +136,21 @@ In this case run mvn clean on command line or in Eclipse.
 
 1. Deploy complete implementation
 
+Don't forget to start the webshop glassfish server first!
 Either select the cocome-shop-project in Eclipse and execute maven
 install or do this on command line as
 
 cd cocome-shop-project
 mvn install
+(no need to set 'settings', they are already in pom.xml)
 
 2. Register authentication provider
 
-Open localhost:4851 in your browser to open the admin console of the cocome-pickup domain.
+Open localhost:8548 in your browser to open the admin console of the cocome-pickup domain.
 There go to Configurations -> server-config -> Security -> Realms and add a new security realm.
 
-- Name: LogicServiceRealm, Class name: org.cocome.cloud.auth.provider.LogicServiceRealm
+- Name: LogicServiceRealm, Class name: org.cocome.cloud.auth.provider.LogicServiceRealm                       //TODO auth jar in domain folder?
+                                                                                                              //No access to wsdl etc?
 
 Go back to Configurations -> server-config -> Security and change the Default Realm to the 
 new LogicServiceRealm.
@@ -179,7 +180,7 @@ can normally be ignored.
 Once you have successfully deployed the projects you can access the 
 pickup shop under the following URL:
 
-http://localhost:8383/cloud-pickup-shop/
+http://localhost:8580/cloud-pickup-shop/
 
 There you can browse the currently registered products, select a store, 
 register a new user or log in with an existing one and purchase products.
