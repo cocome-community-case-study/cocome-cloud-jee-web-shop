@@ -45,7 +45,7 @@
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-1.2-api</artifactId>
     </dependency>
-    			<dependency>
+<!--     			<dependency>
 				<groupId>javax.cache</groupId>
 				<artifactId>cache-api</artifactId>
 			</dependency>
@@ -56,11 +56,12 @@
 			<dependency>
 				<groupId>org.jsr107.ri</groupId>
 				<artifactId>cache-annotations-ri-cdi</artifactId>
-			</dependency>
+			</dependency> -->
 			<dependency>
 				<groupId>org.cocome</groupId>
 				<artifactId>cloud-auth-provider</artifactId>
 				<version>1.0</version>
+				<scope>provided</scope>
 			</dependency>
 	</dependencies>
 	<build>
@@ -78,7 +79,6 @@
 			<plugin>
 				<groupId>org.codehaus.cargo</groupId>
 				<artifactId>cargo-maven2-plugin</artifactId>
-				<version>1.4.9</version>
 				<configuration>
 					<wait>true</wait>
 					<container>
@@ -98,9 +98,6 @@
 					<deployables>
 						<deployable>
 							<location>${project.build.directory}/${project.build.finalName}.${project.packaging}</location>
-							<properties>
-
-							</properties>
 							<type>war</type>
 						</deployable>
 					</deployables>
