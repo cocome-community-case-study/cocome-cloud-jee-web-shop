@@ -6,8 +6,8 @@
 - Glassfish 4.0 or higher (or Glassfish 3.1)
 
 Quick Facts:
-${GLASSFISH} - path to the Glassfish installation
-${HOME}      - home folder of your user account
+- ${GLASSFISH} - path to the Glassfish installation
+- ${HOME}      - home folder of your user account
 
 ## Preparations
 
