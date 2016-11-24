@@ -33,25 +33,20 @@
 		<jaxws-plugin-version>2.3</jaxws-plugin-version>
 		<maven-dep-plugin-version>2.1</maven-dep-plugin-version>
 		<maven-build-helper-version>1.9.1</maven-build-helper-version>
-		<jcache-api-version>1.0.0</jcache-api-version>
-		<hazelcast-version>3.4.1</hazelcast-version>
-		<jcache-cdi-lib-version>1.0.0</jcache-cdi-lib-version>
-		
-		<!-- deployment properties -->
-		<!-- <local.glassfish.home>/home/rju/glassfish4/glassfish</local.glassfish.home> -->
-		
+		<cargo-maven-version>1.4.9</cargo-maven-version>
+
 		<logic.registry.protocol>http</logic.registry.protocol>
 		<logic.registry.host>localhost</logic.registry.host>
-		<logic.registry.httpPort>8280</logic.registry.httpPort>
+		<logic.registry.httpPort>8480</logic.registry.httpPort>
 		<logic.registry.baseDir />
 		<logic.registryService>/RegistryService</logic.registryService>
-        
-	    <pickup.domain>frontend-domain</pickup.domain>
-        <pickup.host>localhost</pickup.host>
+
+		<pickup.domain>cocome-pickup</pickup.domain>
+		<pickup.host>localhost</pickup.host>
 		<pickup.user>admin</pickup.user>
 		<pickup.password></pickup.password>
-		<pickup.httpPort>8080</pickup.httpPort>
-		<pickup.adminPort>8048</pickup.adminPort>
+		<pickup.httpPort>8580</pickup.httpPort>
+		<pickup.adminPort>8548</pickup.adminPort>
 	</properties>
 
 
@@ -120,21 +115,6 @@
 				<version>${mockito-version}</version>
 				<scope>test</scope>
 			</dependency>
-			<dependency>
-				<groupId>javax.cache</groupId>
-				<artifactId>cache-api</artifactId>
-				<version>${jcache-api-version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.hazelcast</groupId>
-				<artifactId>hazelcast</artifactId>
-				<version>${hazelcast-version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jsr107.ri</groupId>
-				<artifactId>cache-annotations-ri-cdi</artifactId>
-				<version>${jcache-cdi-lib-version}</version>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -196,6 +176,12 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-dependency-plugin</artifactId>
 					<version>${maven-dep-plugin-version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-maven2-plugin</artifactId>
+					<version>${cargo-maven-version}</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
