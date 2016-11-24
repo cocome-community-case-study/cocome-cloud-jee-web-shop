@@ -22,12 +22,13 @@ to the installation directory.
 escaping in certain places, i.e., \\ for a \.
 
 Glassfish is usually installed with the following layout:
-${GLASSFISH}/bin
-${GLASSFISH}/glassfish
-${GLASSFISH}/javadb
-${GLASSFISH}/mq
-${GLASSFISH}/pkg
-${GLASSFISH}/README.txt
+
+- ${GLASSFISH}/bin
+- ${GLASSFISH}/glassfish
+- ${GLASSFISH}/javadb
+- ${GLASSFISH}/mq
+- ${GLASSFISH}/pkg
+- ${GLASSFISH}/README.txt
 
 ### 2. Configure Glassfish Domains
 
@@ -93,7 +94,7 @@ The installation instructions can be found in the repository under
 cocome-maven-parent/doc/
 
 **IMPORTANT:** If you installed CoCoME before, make sure it is running without any troubles.
-To verify: do mvn clean post-clean in cocome-maven project, then do mvn install with the cocome settings.
+To verify: do ```mvn clean post-clean``` in cocome-maven project, then do mvn install with the cocome settings.
 Don't forget to start each Glassfish server.
 
 **Troubleshooting:**  
@@ -113,8 +114,8 @@ Don't forget to start each Glassfish server.
 1. Check out git repository from:  https://github.com/cocome-community-case-study/cocome-cloud-jee-web-shop.git
    This can be done via 'git clone https://github.com/cocome-community-case-study/cocome-cloud-jee-web-shop.git'
    or with eclipse 'clone repository' (use above URL)
-   1. Import the existing maven project in Eclipse with 
-      Import -> Maven -> Existing Maven Projects
+  1. Import the existing maven project in Eclipse with 
+     Import -> Maven -> Existing Maven Projects
 2. Select the cocome-shop-project folder in
    the GIT repository to import. There should appear two 
    sub-projects, cloud-auth-provider and cloud-pickup-shop.
@@ -136,31 +137,33 @@ deployment process, there might be parts up and running which can cause
 additional trouble after fixing the issue and trying installation again.
 In this case run mvn clean on command line or in Eclipse.
 
-1. Deploy complete implementation
+### 1. Deploy complete implementation
+
 Don't forget to start the webshop glassfish server first!
 Either select the cocome-shop-project in Eclipse and execute maven
 install or do this on command line as
+
 ```
 cd cocome-shop-project
 mvn install
 ```
+
 (no need to set 'settings', they are already in pom.xml)
 
-2. Register authentication provider
-  1. First you need to move cloud-auth-provider-1.0.jar from your workspace 
-     (workspace/cocome-cloud-jee-web-shop/cocome-shop-project/cloud-auth-provider/target)
-     to the lib folder of the cocome-pickup domain in glassfish 
-     (${GLASSFISH}/glassfish/domains/cocome-pickup/cocome-pickup/lib)
-  2. Open localhost:8548 in your browser to open the admin console of the cocome-pickup domain.
-     There go to Configurations -> server-config -> Security -> Realms and add a new security realm.
+### 2. Register authentication provider
+1. First you need to move cloud-auth-provider-1.0.jar from your workspace 
+   (workspace/cocome-cloud-jee-web-shop/cocome-shop-project/cloud-auth-provider/target)
+   to the lib folder of the cocome-pickup domain in glassfish 
+   (${GLASSFISH}/glassfish/domains/cocome-pickup/cocome-pickup/lib)
+2. Open localhost:8548 in your browser to open the admin console of the cocome-pickup domain.
+   There go to Configurations -> server-config -> Security -> Realms and add a new security realm.
+   - Name: LogicServiceRealm, Class name: org.cocome.cloud.auth.provider.LogicServiceRealm
 
-     - Name: LogicServiceRealm, Class name: org.cocome.cloud.auth.provider.LogicServiceRealm                       
+   Go back to Configurations -> server-config -> Security and change the Default Realm to the 
+   new LogicServiceRealm.
 
-     Go back to Configurations -> server-config -> Security and change the Default Realm to the 
-     new LogicServiceRealm.
-
-     Now you need to open the file ${GLASSFISH}/glassfish/domains/cocome-pickup/config/login.conf and add 
-     the following lines at the end:
+   Now you need to open the file ${GLASSFISH}/glassfish/domains/cocome-pickup/config/login.conf and add 
+   the following lines at the end:
      
 ```
 cocomeLogicRealm {
@@ -168,14 +171,12 @@ cocomeLogicRealm {
 };
 ```
 
-
-     Then execute (via console or use eclipse mvn...):
+   Then execute (via console or use eclipse mvn...):
 
 ```
 cd cocome-shop-project
 mvn clean post-clean install
-```
-   
+```   
 
 **Troubleshooting:**
 - **Null pointer exception when adding the security realm:** cloud-auth-provider-1.0.jar  is not moved yet or moved 
