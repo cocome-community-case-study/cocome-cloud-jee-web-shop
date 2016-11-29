@@ -99,7 +99,7 @@ Don't forget to start each Glassfish server.
 
 **Troubleshooting:**  
 - **(un-)deployment failed:** STOP the glassfish server that's causing trouble. 
-  Go to the domain folder (glassfish->glassfish->domain->...) in your glassfish 
+  Go to the domain folder (glassfish4/glassfish/domains/...) in your glassfish 
   folder (e.g.: enterprise) and delete the CONTENT of the osgi-cache, apllications and generated folder.
   Restart the glassfish server.
   Then access the admin surface of the server ( e.g.: localhost:8348   to access the enterprise server via browser).
@@ -122,7 +122,8 @@ Don't forget to start each Glassfish server.
    These projects depend on an existing installation of the 
    basic CoCoME version to be available at least in the local
    maven repository.
-3. Once successfully imported, you need to open the cocome-shop-project/pom.xml file.
+3. Once successfully imported, you need to rename the cocome-shop-project/settings.xml.template 
+   file to settings.xml and open it.
   1. Check and change the following settings:
      - pickup.domain to cocome-pickup (  <pickup.domain>....</pickup.domain>  -->   <pickup.domain>cocome-pickup</pickup.domain> )
      - pickup.httpPort to 8580
@@ -135,22 +136,34 @@ Don't forget to start each Glassfish server.
 **Note:** If compilation and deployment fail half through the build and
 deployment process, there might be parts up and running which can cause
 additional trouble after fixing the issue and trying installation again.
-In this case run mvn clean on command line or in Eclipse.
+In this case run mvn -s settings.xml clean on command line or in Eclipse.
 
 ### 1. Deploy complete implementation
 
 Don't forget to start the webshop glassfish server first!
-Either select the cocome-shop-project in Eclipse and execute maven
-install or do this on command line as
+
+To deploy the pickup shop from within Eclipse you can create a 
+new build configuration by right-clicking on the 
+cocome-shop-project -> Run As -> Maven build...
+In the following dialog under Goals enter 'install' and 
+under User settings enter the path to your settings.xml 
+in the cocome-shop-project folder. Once you did this, you 
+can later start this configuration again by right clicking
+on cocome-shop-project -> Run As -> Maven build (without the dots).
+A window will appear where you can select which configuration to run.
+
+To deploy the pickup shop from command line you have to do this in a console:
 
 ```
 cd cocome-shop-project
-mvn install
+mvn -s settings.xml install
 ```
 
-(no need to set 'settings', they are already in pom.xml)
-
 ### 2. Register authentication provider
+
+**This step is only necessary once, or, in case you changed something in the 
+cloud-auth-provider project you have to repeat it.**
+
 1. First you need to move cloud-auth-provider-1.0.jar from your workspace 
    (workspace/cocome-cloud-jee-web-shop/cocome-shop-project/cloud-auth-provider/target)
    to the lib folder of the cocome-pickup domain in glassfish 
@@ -175,7 +188,7 @@ cocomeLogicRealm {
 
 ```
 cd cocome-shop-project
-mvn clean post-clean install
+mvn -s settings.xml clean post-clean install
 ```   
 
 **Troubleshooting:**
