@@ -42,16 +42,16 @@
 		
 		<logic.registry.protocol>http</logic.registry.protocol>
 		<logic.registry.host>localhost</logic.registry.host>
-		<logic.registry.httpPort>8280</logic.registry.httpPort>
+		<logic.registry.httpPort>8480</logic.registry.httpPort>
 		<logic.registry.baseDir />
 		<logic.registryService>/RegistryService</logic.registryService>
         
-	    <pickup.domain>frontend-domain</pickup.domain>
+	    <pickup.domain>cocome-pickup</pickup.domain>
         <pickup.host>localhost</pickup.host>
 		<pickup.user>admin</pickup.user>
 		<pickup.password></pickup.password>
-		<pickup.httpPort>8080</pickup.httpPort>
-		<pickup.adminPort>8048</pickup.adminPort>
+		<pickup.httpPort>8580</pickup.httpPort>
+		<pickup.adminPort>8548</pickup.adminPort>
 	</properties>
 
 
