@@ -91,7 +91,7 @@ The required projects can be found in the following repository:
 https://github.com/cocome-community-case-study/cocome-cloud-jee-platform-migration
 
 The installation instructions can be found in the repository under 
-cocome-maven-parent/doc/
+cocome-maven-project/doc/
 
 **IMPORTANT:** If you installed CoCoME before, make sure it is running without any troubles.
 To verify: do ```mvn clean post-clean``` in cocome-maven project, then do mvn install with the cocome settings.
