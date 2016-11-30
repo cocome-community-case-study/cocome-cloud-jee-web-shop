@@ -167,7 +167,7 @@ cloud-auth-provider project you have to repeat it.**
 1. First you need to move cloud-auth-provider-1.0.jar from your workspace 
    (workspace/cocome-cloud-jee-web-shop/cocome-shop-project/cloud-auth-provider/target)
    to the lib folder of the cocome-pickup domain in glassfish 
-   (${GLASSFISH}/glassfish/domains/cocome-pickup/cocome-pickup/lib)
+   (${GLASSFISH}/glassfish/domains/cocome-pickup/lib)
 2. Open localhost:8548 in your browser to open the admin console of the cocome-pickup domain.
    There go to Configurations -> server-config -> Security -> Realms and add a new security realm.
    - Name: LogicServiceRealm, Class name: org.cocome.cloud.auth.provider.LogicServiceRealm
@@ -207,13 +207,13 @@ projects are deployed and undeployed is the same, so the error
 can normally be ignored. 
 
 ## Usage
-**BEFORE USING:** Start the database :) In case you are running a Derby Database, select your glassfish folder -> bin the 
-execute in console:  asadmin start-database
+**BEFORE USING:** Start the database :) In case you are running a Derby Database, select your glassfish folder -> bin then 
+execute in a console:  asadmin start-database
 
 **NOTE:** You have to start the database every time you access the frontend (pickupshop or cocome frontend).
 If you open the server.log file in your glassfish domain that's causing the issues and scroll to the end,
 you probably find an error:   ... index not valid...
-This error is cause by a not-started database.
+This error is probably caused by a not-running database.
 
 Once you have successfully deployed the projects you can access the 
 pickup shop under the following URL:
