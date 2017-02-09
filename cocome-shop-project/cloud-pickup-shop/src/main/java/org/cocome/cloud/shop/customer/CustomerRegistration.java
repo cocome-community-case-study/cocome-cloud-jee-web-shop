@@ -5,6 +5,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.cocome.cloud.logic.stub.NotInDatabaseException_Exception;
 import org.cocome.cloud.shop.inventory.connection.CustomerQuery;
 import org.cocome.cloud.shop.inventory.store.Store;
 import java.io.Serializable;
@@ -79,7 +81,7 @@ public class CustomerRegistration implements Serializable {
 		this.preferredStore = preferredStore;
 	}
 	
-	public String submit() {
+	public String submit() throws NotInDatabaseException_Exception {
 		// TODO check user input
 		FacesContext context = FacesContext.getCurrentInstance();
 		
@@ -95,7 +97,7 @@ public class CustomerRegistration implements Serializable {
 		}
 	}
 
-	private boolean createCustomer() {
+	private boolean createCustomer() throws NotInDatabaseException_Exception {
 		return customerQuery.registerNewCustomer();
 	}
 }

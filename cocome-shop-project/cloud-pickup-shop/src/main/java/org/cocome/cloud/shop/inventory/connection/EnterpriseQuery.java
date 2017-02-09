@@ -1,5 +1,7 @@
 package org.cocome.cloud.shop.inventory.connection;
 
+import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -7,13 +9,17 @@ import java.util.List;
 import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.xml.ws.WebServiceRef;
 
 import org.apache.log4j.Logger;
+import org.cocome.cloud.logic.registry.client.IApplicationHelper;
 import org.cocome.cloud.logic.stub.IEnterpriseManager;
 import org.cocome.cloud.logic.stub.IEnterpriseManagerService;
+import org.cocome.cloud.logic.stub.NotBoundException_Exception;
 import org.cocome.cloud.logic.stub.NotInDatabaseException_Exception;
+import org.cocome.cloud.registry.service.Names;
 import org.cocome.cloud.shop.inventory.enterprise.Enterprise;
 import org.cocome.cloud.shop.inventory.store.ProductWrapper;
 import org.cocome.cloud.shop.inventory.store.Store;
@@ -37,14 +43,40 @@ public class EnterpriseQuery implements IEnterpriseQuery {
 	private Map<Long, Collection<Store>> storeCollections;
 	private Map<Long, Store> stores;
 	
-	@WebServiceRef(IEnterpriseManagerService.class)
-	IEnterpriseManager enterpriseManager;
+	
 	
 	/* (non-Javadoc)
 	 * @see org.cocome.cloud.shop.inventory.connection.IEnterpriseQuery#getEnterprises()
 	 */
+	
+	IEnterpriseManager enterpriseManager;
+	
+	@Inject
+	long defaultEnterpriseIndex;
+	
+	@Inject
+	IApplicationHelper applicationHelper;
+	
+	private IEnterpriseManager lookupEnterpriseManager(long enterpriseID) throws NotInDatabaseException_Exception {
+		try {
+			return applicationHelper.getComponent(
+					Names.getEnterpriseManagerRegistryName(enterpriseID), 
+					IEnterpriseManagerService.SERVICE, 
+					IEnterpriseManagerService.class).getIEnterpriseManagerPort();
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| MalformedURLException | NoSuchMethodException | SecurityException | NotBoundException_Exception e) {
+			if (enterpriseID == defaultEnterpriseIndex) {
+			LOG.error("Got exception while retrieving enterprise manager location: " + e.getMessage());
+			e.printStackTrace();
+			throw new NotInDatabaseException_Exception(e.getMessage());
+			} else {
+				return lookupEnterpriseManager(defaultEnterpriseIndex);
+			}
+		}
+	}
+	
 	@Override
-	public Collection<Enterprise> getEnterprises() {
+	public Collection<Enterprise> getEnterprises() throws NotInDatabaseException_Exception {
 		if(enterprises != null) {
 			return enterprises.values();
 		}
@@ -67,8 +99,9 @@ public class EnterpriseQuery implements IEnterpriseQuery {
 	}
 
 	@Override
-	public void updateEnterpriseInformation() {
+	public void updateEnterpriseInformation() throws NotInDatabaseException_Exception {
 		this.enterprises = new HashMap<Long, Enterprise>();
+		enterpriseManager = lookupEnterpriseManager(defaultEnterpriseIndex);
 		
 		for (EnterpriseTO enterprise : enterpriseManager.getEnterprises()) {
 			enterprises.put(enterprise.getId(), new Enterprise(enterprise.getId(), enterprise.getName()));
@@ -89,9 +122,10 @@ public class EnterpriseQuery implements IEnterpriseQuery {
 		
 		for (Enterprise ent : enterprises.values()) {
 			LinkedList<Store> stores = new LinkedList<Store>();
-
+			enterpriseManager = lookupEnterpriseManager(ent.getId());
 			for (StoreWithEnterpriseTO store : enterpriseManager.queryStoresByEnterpriseID(ent.getId())) {
 				Store tempStore = new Store(store.getId(), store.getLocation(), store.getName());
+				
 				this.stores.put(tempStore.getID(), tempStore);
 				stores.add(tempStore);
 			}
@@ -100,7 +134,7 @@ public class EnterpriseQuery implements IEnterpriseQuery {
 	}
 
 	@Override
-	public Enterprise getEnterpriseByID(long enterpriseID) {
+	public Enterprise getEnterpriseByID(long enterpriseID) throws NotInDatabaseException_Exception {
 		if (enterprises == null) {
 			updateEnterpriseInformation();
 		}
@@ -120,9 +154,10 @@ public class EnterpriseQuery implements IEnterpriseQuery {
 		return store;
 	}
 	
-	public List<ProductWrapper> getAllProducts() {
+	public List<ProductWrapper> getAllProducts() throws NotInDatabaseException_Exception {
 		// TODO should definitely be cached somehow, especially when there are lots of products
 		List<ProductWrapper> products = new LinkedList<ProductWrapper>();
+		enterpriseManager = lookupEnterpriseManager(defaultEnterpriseIndex);
 		for (ProductTO product : enterpriseManager.getAllProducts()) {
 			ProductWrapper wrapper = new ProductWrapper(product);
 			products.add(wrapper);
@@ -132,12 +167,14 @@ public class EnterpriseQuery implements IEnterpriseQuery {
 
 	@Override
 	public ProductWrapper getProductByID(long productID) throws NotInDatabaseException_Exception {
+		enterpriseManager = lookupEnterpriseManager(defaultEnterpriseIndex);
 		ProductWrapper product = new ProductWrapper(enterpriseManager.getProductByID(productID));
 		return product;
 	}
 
 	@Override
 	public ProductWrapper getProductByBarcode(long barcode) throws NotInDatabaseException_Exception {
+		enterpriseManager = lookupEnterpriseManager(defaultEnterpriseIndex);
 		ProductWrapper product = new ProductWrapper(enterpriseManager.getProductByBarcode(barcode));
 		return product;
 	}

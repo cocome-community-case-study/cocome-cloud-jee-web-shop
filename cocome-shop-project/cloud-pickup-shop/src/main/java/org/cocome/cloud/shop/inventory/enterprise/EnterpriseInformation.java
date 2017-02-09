@@ -33,7 +33,7 @@ public class EnterpriseInformation implements Serializable, IEnterpriseInformati
 	private boolean enterpriseSubmitted = false;
 	
 	@Override
-	public Collection<Enterprise> getEnterprises() {
+	public Collection<Enterprise> getEnterprises() throws NotInDatabaseException_Exception {
 		return enterpriseQuery.getEnterprises();
 	}
 
@@ -58,7 +58,7 @@ public class EnterpriseInformation implements Serializable, IEnterpriseInformati
 	}
 
 	@Override
-	public Enterprise getActiveEnterprise() {
+	public Enterprise getActiveEnterprise() throws NotInDatabaseException_Exception {
 		return enterpriseQuery.getEnterpriseByID(activeEnterpriseID);
 	}
 
