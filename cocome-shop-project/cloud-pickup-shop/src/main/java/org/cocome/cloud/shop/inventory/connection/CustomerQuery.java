@@ -8,9 +8,14 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.xml.ws.WebServiceRef;
 import org.apache.log4j.Logger;
+import org.cocome.cloud.logic.registry.client.IApplicationHelper;
+import org.cocome.cloud.logic.stub.IEnterpriseManager;
+import org.cocome.cloud.logic.stub.IEnterpriseManagerService;
 import org.cocome.cloud.logic.stub.ILoginManager;
 import org.cocome.cloud.logic.stub.ILoginManagerService;
+import org.cocome.cloud.logic.stub.NotBoundException_Exception;
 import org.cocome.cloud.logic.stub.NotInDatabaseException_Exception;
+import org.cocome.cloud.registry.service.Names;
 import org.cocome.cloud.shop.customer.Customer;
 import org.cocome.cloud.shop.customer.CustomerRegistration;
 import org.cocome.cloud.shop.customer.LoggedIn;
@@ -25,6 +30,8 @@ import org.cocome.tradingsystem.inventory.application.usermanager.CredentialType
 import org.cocome.tradingsystem.inventory.application.usermanager.Role;
 import org.cocome.tradingsystem.inventory.application.usermanager.UserTO;
 
+import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
 import java.security.Principal;
 
 /**
@@ -47,17 +54,45 @@ public class CustomerQuery {
 	@Inject
 	StoreInformation storeInformation;
 	
-	@WebServiceRef(ILoginManagerService.class)
+	
 	ILoginManager loginManager;
 	
 	@Inject
 	CustomerRegistration customerReg;
 	
+	
+    /**
+     * LoginManager will be found under  defaultEnterpriseIndex
+     */
+	@Inject
+	long defaultEnterpriseIndex;
+	
+	@Inject
+	IApplicationHelper applicationHelper;
+	
+	private ILoginManager lookupLoginManager(long loginManagerId) throws NotInDatabaseException_Exception {
+		try {
+			return applicationHelper.getComponent(
+					Names.getLoginManagerRegistryName(loginManagerId), 
+					ILoginManagerService.SERVICE, 
+					ILoginManagerService.class).getILoginManagerPort();
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| MalformedURLException | NoSuchMethodException | SecurityException | NotBoundException_Exception e) {
+			if (loginManagerId == defaultEnterpriseIndex) {
+			LOG.error("Got exception while retrieving enterprise manager location: " + e.getMessage());
+			e.printStackTrace();
+			throw new NotInDatabaseException_Exception(e.getMessage());
+			} else {
+				return lookupLoginManager(defaultEnterpriseIndex);
+			}
+		}
+	}
+	
 	@RolesAllowed("Customer")
 	@Produces @LoggedIn @SessionScoped
-	public Customer getCurrentCustomer(@New Customer customer) {
+	public Customer getCurrentCustomer(@New Customer customer) throws NotInDatabaseException_Exception {
 		UserTO userTO = initUserTO(principal.getName(), login.getPassword());
-
+		loginManager = lookupLoginManager(defaultEnterpriseIndex);
 		try {
 			UserTO serverTO = loginManager.requestAuthToken(userTO);
 			CustomerWithStoreTO customerTO = loginManager.getCustomerWithStoreTO(
@@ -73,12 +108,14 @@ public class CustomerQuery {
 		return customer;
 	}
 	
-	public boolean createUserWithPassword(String username, String password) {
+	public boolean createUserWithPassword(String username, String password) throws NotInDatabaseException_Exception {
+		loginManager = lookupLoginManager(defaultEnterpriseIndex);
 		return loginManager.createNewUser(initUserTO(username, password));
 	}
 	
-	public boolean registerNewCustomer() {
+	public boolean registerNewCustomer() throws NotInDatabaseException_Exception {
 		CustomerWithStoreTO customer = initCustomerTO();
+		loginManager = lookupLoginManager(defaultEnterpriseIndex);
 		return loginManager.createNewCustomer(customer);
 	}
 
@@ -127,7 +164,8 @@ public class CustomerQuery {
 		return customer;
 	}
 	
-	public boolean updateCustomer(Customer customer) {
+	public boolean updateCustomer(Customer customer) throws NotInDatabaseException_Exception {
+		loginManager = lookupLoginManager(defaultEnterpriseIndex);
 		CustomerWithStoreTO customerTO = new CustomerWithStoreTO();
 		customerTO.setId(customer.getId());
 		customerTO.setFirstName(customer.getFirstName());

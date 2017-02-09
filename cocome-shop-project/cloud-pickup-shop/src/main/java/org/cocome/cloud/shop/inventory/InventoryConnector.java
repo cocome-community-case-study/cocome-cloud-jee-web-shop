@@ -96,7 +96,7 @@ public class InventoryConnector implements IInventory {
 	}
 
 	@Override
-	public Collection<ProductWrapper> getAllProducts() {
+	public Collection<ProductWrapper> getAllProducts() throws NotInDatabaseException_Exception {
 		Collection<ProductWrapper> products = productCache.getAllEntries(); 
 		
 		if (!storeInformation.isStoreSet()) {
@@ -111,7 +111,7 @@ public class InventoryConnector implements IInventory {
 		return addStockItemInfoToProducts(products);
 	}
 
-	private void fillProductCache() {
+	private void fillProductCache() throws NotInDatabaseException_Exception {
 		Collection<ProductWrapper> products = enterpriseQuery.getAllProducts();
 		
 		for (ProductWrapper product : products) {

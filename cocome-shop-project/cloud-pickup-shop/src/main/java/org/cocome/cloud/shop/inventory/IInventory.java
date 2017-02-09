@@ -19,7 +19,7 @@ import org.cocome.cloud.shop.shoppingcart.IShoppingCart;
 public interface IInventory {
 	public Collection<ProductWrapper> getAvailableStockItems() throws NotInDatabaseException_Exception;
 	
-	public Collection<ProductWrapper> getAllProducts();
+	public Collection<ProductWrapper> getAllProducts() throws NotInDatabaseException_Exception;
 	
 	public ProductWrapper getProduct(long barcode);
 	

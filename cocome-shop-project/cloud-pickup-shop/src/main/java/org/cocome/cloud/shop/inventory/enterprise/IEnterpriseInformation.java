@@ -12,12 +12,12 @@ import org.cocome.cloud.shop.inventory.store.Store;
  * @author Robert Heinrich
  */
 public interface IEnterpriseInformation {
-	public Collection<Enterprise> getEnterprises();
+	public Collection<Enterprise> getEnterprises() throws NotInDatabaseException_Exception;
 	public Collection<Store> getStores() throws NotInDatabaseException_Exception;
 	
 	public long getActiveEnterpriseID();
 	public void setActiveEnterpriseID(long enterpriseID);
-	public Enterprise getActiveEnterprise();
+	public Enterprise getActiveEnterprise() throws NotInDatabaseException_Exception;
 	public String submitActiveEnterprise();
 	public boolean isEnterpriseSubmitted();
 	public void setEnterpriseSubmitted(boolean submitted);

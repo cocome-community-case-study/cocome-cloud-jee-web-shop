@@ -1,0 +1,68 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                          http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    
+
+	<profiles>
+		<profile>
+			<id>cocome-shop-context</id>
+			<properties>
+				<!-- Configuration for the registry connection. Adjust these settings 
+					to match your configuration for the base CoCoME deployment. -->
+
+				<logic.registry.protocol>http</logic.registry.protocol>
+				<logic.registry.host>cocome</logic.registry.host>
+				<logic.registry.httpPort>8480</logic.registry.httpPort>
+				<logic.registry.baseDir />
+				<logic.registryService>/RegistryService</logic.registryService>
+
+				<!-- Configuration for the deployment of the pickup shop. Adjust these 
+					settings to match your intended setup, i.e. enter the domain, ports, etc. 
+					for the Glassfish instance on which the pickup shop should be deployed. -->
+
+				<pickup.domain>cocome-pickup</pickup.domain>
+				<pickup.host>localhost</pickup.host>
+				<pickup.user>admin</pickup.user>
+				<pickup.password></pickup.password>
+				<pickup.httpPort>8580</pickup.httpPort>
+				<pickup.adminPort>8548</pickup.adminPort>
+			</properties>
+		</profile>
+<profile>
+      <id>securecentral</id>
+      <!--Override the repository (and pluginRepository) "central" from the
+         Maven Super POM -->
+      <repositories>
+        <repository>
+          <id>central</id>
+          <url>http://repo1.maven.org/maven2</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+    <pluginRepository>
+      <id>central</id>
+      <name>Maven Plugin Repository</name>
+      <url>http://repo1.maven.org/maven2</url>
+      <layout>default</layout>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
+    </profile>
+
+
+
+	</profiles>
+	<activeProfiles>
+		<activeProfile>cocome-shop-context</activeProfile>
+	</activeProfiles>
+
+</settings>

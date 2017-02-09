@@ -11,7 +11,7 @@
 
 	<artifactId>cloud-auth-provider</artifactId>
 	<name>cloud-auth-provider</name>
-<!-- 	<packaging>bundle</packaging> -->
+	<!-- <packaging>bundle</packaging> -->
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,12 +34,8 @@
 			<version>4.1.1</version>
 			<scope>provided</scope>
 		</dependency>
-<!-- 		<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.core</artifactId>
-			<version>6.0.0</version>
-			<scope>provided</scope>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.osgi</groupId> <artifactId>org.osgi.core</artifactId> 
+			<version>6.0.0</version> <scope>provided</scope> </dependency> -->
 	</dependencies>
 
 	<build>
@@ -52,7 +48,9 @@
 					<target>${java-version}</target>
 				</configuration>
 			</plugin>
-			<plugin> <artifactId>maven-jar-plugin</artifactId> </plugin>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
@@ -72,8 +70,14 @@
 							org.cocome.tradingsystem.inventory.application.*</_exportcontents>
 					</instructions>
 				</configuration>
-				<executions> <execution> <phase>package</phase> <goals> <goal>bundle</goal> 
-					</goals> </execution> </executions>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>bundle</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
