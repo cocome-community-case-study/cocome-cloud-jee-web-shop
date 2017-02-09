@@ -196,8 +196,11 @@ mvn -s settings.xml clean post-clean install
   to the wrong folder.
 - **Wsdl exception when adding the security realm:** Make sure that cocome-maven-project is
   deployed without any problems  (repeat deploying cocome as mentioned above) and redeploy webshop.
-  - stop and restart cocome-pickup server  
-
+  - stop and restart cocome-pickup server 
+- If you are using Linux and you get following error: **Failed to read artifact descriptor for org.glassfish.external:asm-all:jar:3.3: Could not transfer artifact org.glassfish.external:asm-all:pom:3.3 from/to central (https://repo.maven.apache.org/maven2)**  then you need to prompt following command:
+```
+sudo /var/lib/dpkg/info/ca-certificates-java.postinst configure
+```
 ## Undeploy Services
 
 To undeploy and shut down Glassfish use Run As -> Maven clean.
