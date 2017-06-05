@@ -11,7 +11,7 @@
 
 	<artifactId>cloud-auth-provider</artifactId>
 	<name>cloud-auth-provider</name>
-	<!-- <packaging>bundle</packaging> -->
+<!-- 	<packaging>bundle</packaging> -->
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,7 +22,6 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.cocome</groupId>
 			<artifactId>cloud-logic-core-services</artifactId>
@@ -34,8 +33,12 @@
 			<version>4.1.1</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- <dependency> <groupId>org.osgi</groupId> <artifactId>org.osgi.core</artifactId> 
-			<version>6.0.0</version> <scope>provided</scope> </dependency> -->
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<version>6.0.0</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -50,6 +53,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.2</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.felix</groupId>
@@ -60,14 +64,18 @@
 					<instructions>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Description>${project.artifactId}</Bundle-Description>
-						<Export-Package>org.cocome.cloud.auth.provider,
+						<Export-Package>
+							org.cocome.cloud.auth.provider,
 							org.cocome.cloud.logic.stub,
 							org.cocome.tradingsystem.inventory.application.usermanager,
-							org.cocome.tradingsystem.inventory.application.store</Export-Package>
+							org.cocome.tradingsystem.inventory.application.store
+						</Export-Package>
 						<Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
 						<Embed-Transitive>true</Embed-Transitive>
-						<_exportcontents>org.cocome.cloud.logic.stub.*,
-							org.cocome.tradingsystem.inventory.application.*</_exportcontents>
+						<_exportcontents>
+							org.cocome.cloud.logic.stub.*,
+							org.cocome.tradingsystem.inventory.application.*
+						</_exportcontents>
 					</instructions>
 				</configuration>
 				<executions>
