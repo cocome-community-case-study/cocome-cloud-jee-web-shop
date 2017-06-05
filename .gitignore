@@ -1,0 +1,9 @@
+**/.settings/**
+**/target/**
+**/.project
+**/.checkstyle
+**/.classpath
+settings.xml
+target/**
+.checkstyle
+*.iml
