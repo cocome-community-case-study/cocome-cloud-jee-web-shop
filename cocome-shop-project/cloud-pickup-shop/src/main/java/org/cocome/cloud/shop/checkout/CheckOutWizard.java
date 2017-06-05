@@ -1,5 +1,7 @@
 package org.cocome.cloud.shop.checkout;
 
+import java.io.Serializable;
+
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.inject.Instance;
@@ -16,10 +18,7 @@ import org.cocome.cloud.logic.stub.ProductOutOfStockException_Exception;
 import org.cocome.cloud.logic.stub.UpdateException_Exception;
 import org.cocome.cloud.shop.customer.UserLogin;
 import org.cocome.cloud.shop.inventory.IInventory;
-import org.cocome.cloud.shop.inventory.connection.IStoreQuery;
 import org.cocome.cloud.shop.shoppingcart.IShoppingCart;
-
-import java.io.Serializable;
 
 /**
  * Implements the wizard to guide the customer through the checkout process. 

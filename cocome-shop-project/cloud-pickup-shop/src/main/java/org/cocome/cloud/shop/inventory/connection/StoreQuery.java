@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+
 import org.apache.log4j.Logger;
 import org.cocome.cloud.logic.registry.client.IApplicationHelper;
 import org.cocome.cloud.logic.stub.IStoreManager;

@@ -1,13 +1,12 @@
 package org.cocome.cloud.shop.customer;
 
+import java.io.Serializable;
+
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.cocome.cloud.shop.inventory.store.Store;
 import org.cocome.tradingsystem.inventory.application.store.StoreTO;
-
-import java.io.Serializable;
 
 /**
  * Holds the account information for the currently logged in customer.

@@ -16,8 +16,6 @@
 
 package org.cocome.cloud.external;
 
-import java.rmi.RemoteException;
-
 import javax.ejb.Local;
 
 /**

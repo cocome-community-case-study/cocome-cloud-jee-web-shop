@@ -1,16 +1,18 @@
 package org.cocome.cloud.shop.inventory.connection;
 
+import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
+import java.security.Principal;
+
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.New;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
-import javax.xml.ws.WebServiceRef;
+
 import org.apache.log4j.Logger;
 import org.cocome.cloud.logic.registry.client.IApplicationHelper;
-import org.cocome.cloud.logic.stub.IEnterpriseManager;
-import org.cocome.cloud.logic.stub.IEnterpriseManagerService;
 import org.cocome.cloud.logic.stub.ILoginManager;
 import org.cocome.cloud.logic.stub.ILoginManagerService;
 import org.cocome.cloud.logic.stub.NotBoundException_Exception;
@@ -29,10 +31,6 @@ import org.cocome.tradingsystem.inventory.application.usermanager.CredentialTO;
 import org.cocome.tradingsystem.inventory.application.usermanager.CredentialType;
 import org.cocome.tradingsystem.inventory.application.usermanager.Role;
 import org.cocome.tradingsystem.inventory.application.usermanager.UserTO;
-
-import java.lang.reflect.InvocationTargetException;
-import java.net.MalformedURLException;
-import java.security.Principal;
 
 /**
  * Queries customers from the backend and transforms the response 
