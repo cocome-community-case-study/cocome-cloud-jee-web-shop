@@ -8,8 +8,9 @@ import org.cocome.cloud.shop.inventory.store.ProductWrapper;
 import org.cocome.cloud.shop.inventory.store.Store;
 import org.cocome.cloud.shop.shoppingcart.CartItem;
 import org.cocome.cloud.shop.shoppingcart.IShoppingCart;
-import org.cocome.tradingsystem.inventory.application.store.ProductWithStockItemTO;
+import org.cocome.tradingsystem.inventory.application.store.ProductWithItemTO;
 import org.cocome.tradingsystem.inventory.application.store.ProductWithSupplierAndStockItemTO;
+import org.cocome.tradingsystem.inventory.application.store.SaleEntryTO;
 import org.cocome.tradingsystem.inventory.application.store.SaleTO;
 
 import javax.enterprise.context.RequestScoped;
@@ -33,13 +34,13 @@ import java.util.Map.Entry;
 public class StoreQuery implements IStoreQuery {
     private static final Logger LOG = Logger.getLogger(StoreQuery.class);
 
-    IStoreManager storeManager;
+    private IStoreManager storeManager;
 
     @Inject
-    long defaultStoreIndex;
+    private long defaultStoreIndex;
 
     @Inject
-    IApplicationHelper applicationHelper;
+    private IApplicationHelper applicationHelper;
 
     private IStoreManager lookupStoreManager(long storeID) throws NotInDatabaseException_Exception {
         try {
@@ -92,22 +93,23 @@ public class StoreQuery implements IStoreQuery {
 
             if (sale == null) {
                 sale = new SaleTO();
-                List<ProductWithStockItemTO> productTOs = new LinkedList<>();
-                sale.setProductTOs(productTOs);
+                sale.setEntries(new LinkedList<SaleEntryTO>());
                 saleByStore.put(item.getStore().getID(), sale);
             }
 
             sale.setDate(new Date());
 
             for (int i = 0; i < item.getQuantity(); i++) {
-                ProductWithStockItemTO product = new ProductWithStockItemTO();
-                product.getProductTO().setBarcode(item.getProduct().getBarcode());
-                product.getProductTO().setPurchasePrice(item.getProduct().getSalesPrice());
-                product.setStockItemTO(item.getProduct().getStockItemTO());
-                sale.getProductTOs().add(product);
+                final ProductWithItemTO product = new ProductWithItemTO();
+                product.getProduct().setBarcode(item.getProduct().getBarcode());
+                product.getProduct().setPurchasePrice(item.getProduct().getSalesPrice());
+                product.setItem(item.getProduct().getStockItemTO());
+
+                final SaleEntryTO saleEntry = new SaleEntryTO();
+                saleEntry.setItemData(product);
+
+                sale.getEntries().add(saleEntry);
             }
-
-
         }
 
         for (Entry<Long, SaleTO> sale : saleByStore.entrySet()) {
