@@ -2,6 +2,7 @@ package org.cocome.cloud.shop.inventory.connection;
 
 import org.cocome.cloud.logic.stub.NotInDatabaseException_Exception;
 import org.cocome.cloud.logic.stub.ProductOutOfStockException_Exception;
+import org.cocome.cloud.logic.stub.RecipeException_Exception;
 import org.cocome.cloud.logic.stub.UpdateException_Exception;
 import org.cocome.cloud.shop.inventory.store.ProductWrapper;
 import org.cocome.cloud.shop.inventory.store.Store;

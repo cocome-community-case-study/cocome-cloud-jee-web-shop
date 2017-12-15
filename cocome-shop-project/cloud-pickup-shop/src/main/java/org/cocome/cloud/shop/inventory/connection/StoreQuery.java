@@ -85,7 +85,8 @@ public class StoreQuery implements IStoreQuery {
     }
 
     @Override
-    public boolean accountSale(IShoppingCart cart) throws NotInDatabaseException_Exception, ProductOutOfStockException_Exception, UpdateException_Exception {
+    public boolean accountSale(IShoppingCart cart)
+            throws NotInDatabaseException_Exception, ProductOutOfStockException_Exception, UpdateException_Exception {
         LinkedHashMap<Long, SaleTO> saleByStore = new LinkedHashMap<>((int) (cart.getItemCount() / 0.75));
 
         for (CartItem item : cart.getItems()) {
