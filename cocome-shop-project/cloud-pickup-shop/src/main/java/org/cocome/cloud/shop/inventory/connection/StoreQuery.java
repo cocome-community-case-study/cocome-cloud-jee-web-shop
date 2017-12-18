@@ -8,10 +8,8 @@ import org.cocome.cloud.shop.inventory.store.ProductWrapper;
 import org.cocome.cloud.shop.inventory.store.Store;
 import org.cocome.cloud.shop.shoppingcart.CartItem;
 import org.cocome.cloud.shop.shoppingcart.IShoppingCart;
-import org.cocome.tradingsystem.inventory.application.store.ProductWithItemTO;
-import org.cocome.tradingsystem.inventory.application.store.ProductWithSupplierAndStockItemTO;
+import org.cocome.tradingsystem.inventory.application.store.*;
 import org.cocome.tradingsystem.inventory.application.store.SaleEntryTO;
-import org.cocome.tradingsystem.inventory.application.store.SaleTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -64,10 +62,10 @@ public class StoreQuery implements IStoreQuery {
     public List<ProductWrapper> queryStockItems(Store store) throws NotInDatabaseException_Exception {
         long storeID = store.getID();
         storeManager = lookupStoreManager(storeID);
-        List<ProductWrapper> stockItems = new LinkedList<ProductWrapper>();
-        List<ProductWithSupplierAndStockItemTO> items = storeManager.getProductsWithStockItems(storeID);
-        for (ProductWithSupplierAndStockItemTO item : items) {
-            ProductWrapper newItem = new ProductWrapper(item.getProductTO(), item.getStockItemTO(), store);
+        List<ProductWrapper> stockItems = new LinkedList<>();
+        List<ProductWithSupplierAndItemTO> items = storeManager.getProductsWithStockItems(storeID);
+        for (ProductWithSupplierAndItemTO item : items) {
+            ProductWrapper newItem = new ProductWrapper(item.getProductTO(), (StockItemTO) item.getItemTO(), store);
             stockItems.add(newItem);
         }
         return stockItems;
