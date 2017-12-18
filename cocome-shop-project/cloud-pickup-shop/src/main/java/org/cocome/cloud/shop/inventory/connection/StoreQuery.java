@@ -9,7 +9,7 @@ import org.cocome.cloud.shop.inventory.store.Store;
 import org.cocome.cloud.shop.shoppingcart.CartItem;
 import org.cocome.cloud.shop.shoppingcart.IShoppingCart;
 import org.cocome.tradingsystem.inventory.application.store.ProductWithItemTO;
-import org.cocome.tradingsystem.inventory.application.store.ProductWithSupplierAndStockItemTO;
+import org.cocome.tradingsystem.inventory.application.store.ProductWithSupplierAndItemTO;
 import org.cocome.tradingsystem.inventory.application.store.SaleEntryTO;
 import org.cocome.tradingsystem.inventory.application.store.SaleTO;
 
@@ -65,9 +65,9 @@ public class StoreQuery implements IStoreQuery {
         long storeID = store.getID();
         storeManager = lookupStoreManager(storeID);
         List<ProductWrapper> stockItems = new LinkedList<ProductWrapper>();
-        List<ProductWithSupplierAndStockItemTO> items = storeManager.getProductsWithStockItems(storeID);
-        for (ProductWithSupplierAndStockItemTO item : items) {
-            ProductWrapper newItem = new ProductWrapper(item.getProductTO(), item.getStockItemTO(), store);
+        List<ProductWithSupplierAndItemTO> items = storeManager.getProductsWithItems(storeID);
+        for (ProductWithSupplierAndItemTO item : items) {
+            ProductWrapper newItem = new ProductWrapper(item.getProductTO(), item.getItemTO(), store);
             stockItems.add(newItem);
         }
         return stockItems;
