@@ -80,7 +80,6 @@
 				<groupId>org.codehaus.cargo</groupId>
 				<artifactId>cargo-maven2-plugin</artifactId>
 				<configuration>
-					<wait>true</wait>
 					<container>
 						<containerId>glassfish4x</containerId>
 						<type>remote</type>

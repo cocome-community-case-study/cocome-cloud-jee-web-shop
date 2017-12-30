@@ -72,12 +72,6 @@ public class StoreQuery implements IStoreQuery {
     }
 
     @Override
-    public ProductWrapper getStockItemByProductID(Store store, long productID) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public ProductWrapper getStockItemByBarcode(Store store, long barcode) {
         return null;
     }
