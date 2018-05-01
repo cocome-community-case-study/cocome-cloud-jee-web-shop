@@ -94,7 +94,7 @@ The installation instructions can be found in the repository under
 cocome-maven-project/doc/
 
 **IMPORTANT:** If you installed CoCoME before, make sure it is running without any troubles.
-To verify: do ```mvn clean post-clean``` in cocome-maven project, then do mvn install with the cocome settings.
+To verify: do ```mvn clean post-clean``` in cocome-maven project, then do mvn install -DskipITs with the cocome settings.
 Don't forget to start each Glassfish server.
 
 **Troubleshooting:**  
@@ -104,8 +104,8 @@ Don't forget to start each Glassfish server.
   Restart the glassfish server.
   Then access the admin surface of the server ( e.g.: localhost:8348   to access the enterprise server via browser).
   Go to "list deployment applications" under deployment and delete the application (e.g. enterprise-logic-ear on 
-  enterprise server). Repeat this for other domains that are causing trouble when executing mvn install on 
-  cocome-maven-project.  ONLY proceed if BUILD SUCCES when doing mvn install.
+  enterprise server). Repeat this for other domains that are causing trouble when executing mvn install -DskipITs on 
+  cocome-maven-project.  ONLY proceed if BUILD SUCCES when doing mvn install -DskipITs.
        
        
         
@@ -156,7 +156,7 @@ To deploy the pickup shop from command line you have to do this in a console:
 
 ```
 cd cocome-shop-project
-mvn -s settings.xml install
+mvn -s settings.xml install -DskipITs
 ```
 
 ### 2. Register authentication provider
@@ -188,7 +188,7 @@ cocomeLogicRealm {
 
 ```
 cd cocome-shop-project
-mvn -s settings.xml clean post-clean install
+mvn -s settings.xml clean post-clean install -DskipITs
 ```   
 
 **Troubleshooting:**
